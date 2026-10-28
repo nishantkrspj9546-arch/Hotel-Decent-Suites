@@ -1055,46 +1055,231 @@
           <h2>Photo Gallery</h2>
           <p>Replace these sample images with real photos of your hotel 
             </p>
-<div class="gallery-grid">
-  <img src="hotel-front.jpeg" alt="Hotel Decent Suites entrance">
-  <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=80" alt="Comfortable hotel bedroom">
-  <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=80" alt="Hotel room interior">
-</div>
-</div>
-</section>
+<footer class="ds-footer">
+  <div class="ds-footer-grid">
 
-<footer style="background:#345f5d;color:#fff;padding:40px 20px 0;text-align:center;font-family:Georgia,serif;">
-  <h2 style="font-size:34px;margin:0;">HOTEL<br>DECENT SUITES</h2>
-  <p style="letter-spacing:3px;font-size:11px;">COMFORT · HOSPITALITY · CARE</p>
+    <!-- COLUMN 1: HOTEL INTRODUCTION -->
+    <div class="ds-footer-about">
+      <h2>HOTEL<br>DECENT SUITES</h2>
+      <p class="ds-tagline">COMFORT · HOSPITALITY · CARE</p>
 
-  <p style="max-width:750px;margin:25px auto;line-height:1.9;">
-    Welcome to Hotel Decent Suites in Mahipalpur, New Delhi, conveniently located near Indira Gandhi International Airport. We welcome business travellers, families, couples and groups with comfortable accommodation and warm hospitality. Whether you are visiting Delhi for a business meeting, a family holiday, a transit stay or a group trip, our team is here to make your stay convenient and relaxing. Enjoy free Wi-Fi, ask about breakfast options, parking and paid airport drop services, and contact us for room availability and customised corporate or group booking quotations.
-  </p>
+      <p>
+        Welcome to Hotel Decent Suites, located in Mahipalpur,
+        New Delhi, near Indira Gandhi International Airport.
+        We offer comfortable accommodation for business travellers,
+        families, couples and groups. Our welcoming atmosphere,
+        convenient location and attentive hospitality help make
+        every stay relaxing and memorable.
+      </p>
 
-  <h3>Explore Our Rooms</h3>
-  <p style="line-height:2;">
-    <a href="#rooms" style="color:#e5d4b2;">Deluxe Room</a><br>
-    <a href="#rooms" style="color:#e5d4b2;">Superior Room</a><br>
-    <a href="#rooms" style="color:#e5d4b2;">Superior Twin Room</a><br>
-    <a href="#rooms" style="color:#e5d4b2;">Triple Room</a><br>
-    <a href="#rooms" style="color:#e5d4b2;">Suites & Group Stays</a>
-  </p>
+      <p>
+        Enjoy complimentary Wi-Fi, ask about breakfast options,
+        parking and paid airport drop services. Whether you are
+        visiting Delhi for business, a family holiday, a short
+        transit stay or a group trip, our team is happy to assist.
+        Contact us directly for room availability, corporate
+        bookings and customised group stay quotations.
+      </p>
 
-  <h3>Contact Info</h3>
-  <p style="line-height:2;">
-    <a href="tel:+919873297090" style="color:#e5d4b2;">+91 9873297090</a><br>
-    <a href="mailto:hoteldecentsuites@gmail.com" style="color:#e5d4b2;">hoteldecentsuites@gmail.com</a><br>
-    Mahipalpur, New Delhi – 110037, India
-  </p>
+      <div class="ds-social">
+        <a href="https://wa.me/919873297090" aria-label="WhatsApp">WhatsApp</a>
+        <a href="https://hoteldecentsuites.com/" aria-label="Website">Website</a>
+      </div>
+    </div>
 
-  <p style="margin:25px;">
-    <a href="https://wa.me/919873297090" style="display:inline-block;background:#e5d4b2;color:#18382f;padding:13px 24px;text-decoration:none;border-radius:5px;font-weight:bold;">WHATSAPP BOOKING</a>
-  </p>
+    <!-- COLUMN 2: ROOM LINKS -->
+    <div class="ds-footer-rooms">
+      <h3>Rooms</h3>
+      <a href="#rooms">Deluxe Room</a>
+      <a href="#rooms">Superior Room</a>
+      <a href="#rooms">Superior Twin Room</a>
+      <a href="#rooms">Triple Room</a>
+      <a href="#rooms">Suites & Family Stays</a>
+      <a href="#rooms">Corporate & Group Bookings</a>
+    </div>
 
-  <div style="border-top:1px solid #71918b;margin-top:30px;padding:18px 5px;font:12px Arial,sans-serif;">
+    <!-- COLUMN 3: CONTACT DETAILS -->
+    <div class="ds-footer-contact">
+      <h3>Contact Info</h3>
+
+      <p>
+        <span class="ds-contact-icon">☎</span>
+        <a href="tel:+919873297090">+91 98732 97090</a>
+      </p>
+
+      <p>
+        <span class="ds-contact-icon">✉</span>
+        <a href="mailto:hoteldecentsuites@gmail.com">
+          hoteldecentsuites@gmail.com
+        </a>
+      </p>
+
+      <p>
+        <span class="ds-contact-icon">📍</span>
+        Mahipalpur, New Delhi – 110037, India
+      </p>
+
+      <p>
+        <span class="ds-contact-icon">✈</span>
+        Convenient access to IGI Airport
+      </p>
+
+      <a class="ds-footer-book"
+         href="https://wa.me/919873297090?text=Hello%20Hotel%20Decent%20Suites%2C%20I%20want%20to%20enquire%20about%20a%20room.">
+        ENQUIRE / BOOK NOW
+      </a>
+    </div>
+
+  </div>
+
+  <div class="ds-footer-bottom">
     © 2026 Hotel Decent Suites. All Rights Reserved.
+    <span>Mahipalpur, New Delhi</span>
   </div>
 </footer>
 
-</body>
-</html>
+<style>
+.ds-footer {
+  background: #315d5a;
+  color: #f5f5f0;
+  padding: 55px 6% 0;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.ds-footer-grid {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.8fr 1.15fr;
+  gap: 55px;
+  align-items: start;
+}
+
+.ds-footer h2 {
+  color: #fff;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  margin: 0 0 10px;
+}
+
+.ds-footer h3 {
+  color: #fff;
+  font-size: 25px;
+  margin: 8px 0 30px;
+}
+
+.ds-footer p {
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 0 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.ds-tagline {
+  font-size: 10px !important;
+  letter-spacing: 3px;
+  margin-bottom: 28px !important;
+}
+
+.ds-footer-rooms a {
+  display: block;
+  color: #b7d9df;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 14px;
+  line-height: 2.8;
+  transition: color 0.2s;
+}
+
+.ds-footer-rooms a:hover,
+.ds-footer a:hover {
+  color: #fff;
+}
+
+.ds-footer-contact p {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.ds-footer-contact a {
+  color: #b7d9df;
+  text-decoration: none;
+}
+
+.ds-contact-icon {
+  min-width: 25px;
+  color: #e5d4a6;
+  font-size: 20px;
+}
+
+.ds-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.ds-social a {
+  color: #fff;
+  text-decoration: none;
+  background: #244a47;
+  border: 1px solid #72918b;
+  padding: 9px 13px;
+  border-radius: 4px;
+  font: 12px Arial, sans-serif;
+}
+
+.ds-footer-book {
+  display: inline-block;
+  background: #e5d4a6;
+  color: #244a47 !important;
+  padding: 13px 18px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+.ds-footer-bottom {
+  max-width: 1400px;
+  margin: 45px auto 0;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  font: 12px Arial, sans-serif;
+  color: #e2e9e5;
+}
+
+@media (max-width: 800px) {
+  .ds-footer {
+    padding: 40px 22px 0;
+  }
+
+  .ds-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .ds-footer h2 {
+    font-size: 30px;
+  }
+
+  .ds-footer h3 {
+    margin-bottom: 18px;
+  }
+
+  .ds-footer-bottom {
+    margin-top: 30px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+</style>
