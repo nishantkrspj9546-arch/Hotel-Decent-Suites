@@ -1282,4 +1282,53 @@
     text-align: center;
   }
 }
+  /* Footer width and readability fix */
+.ds-footer {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  background: #315d5a;
+  color: #ffffff;
+  padding: 55px 5% 0;
+}
+
+.ds-footer-grid {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1.2fr;
+  gap: 45px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+.ds-footer h2,
+.ds-footer h3 {
+  color: #ffffff;
+}
+
+.ds-footer p {
+  color: #f4f6f3;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.ds-footer-rooms a,
+.ds-footer-contact a {
+  color: #d5e9e7;
+  overflow-wrap: anywhere;
+}
+
+.ds-footer-bottom {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  .ds-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
 </style>
