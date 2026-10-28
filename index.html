@@ -684,193 +684,315 @@
 
   </div>
 </section>
-    <section id="rooms" style="padding:70px 20px;background:#f8f6f1;">
-  <div style="max-width:1150px;margin:auto;">
+    <section id="rooms" class="lux-rooms">
+  <style>
+    .lux-rooms {
+      padding: 80px 20px;
+      background: #f7f5f0;
+      font-family: Arial, sans-serif;
+      color: #18382f;
+    }
+    .lux-rooms * { box-sizing: border-box; }
+    .lux-wrap { max-width: 1180px; margin: auto; }
+    .lux-heading { text-align: center; max-width: 720px; margin: 0 auto 45px; }
+    .lux-eyebrow {
+      color: #a67c3d; font-size: 12px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .lux-heading h2 {
+      font-family: Georgia, serif; font-size: clamp(30px, 4vw, 43px);
+      margin: 12px 0; color: #18382f;
+    }
+    .lux-heading p { color: #6b746f; line-height: 1.8; }
+    .lux-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+    }
+    .lux-card {
+      background: #fff; border-radius: 13px; overflow: hidden;
+      border: 1px solid #ebe5d9;
+      box-shadow: 0 8px 25px rgba(26, 47, 39, .07);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .lux-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 32px rgba(26, 47, 39, .13);
+    }
+    .lux-photo { height: 225px; position: relative; overflow: hidden; }
+    .lux-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .4s ease;
+    }
+    .lux-card:hover .lux-photo img { transform: scale(1.05); }
+    .lux-tag {
+      position: absolute; left: 14px; top: 14px;
+      background: #fff; color: #18382f; padding: 8px 12px;
+      border-radius: 30px; font-size: 11px; font-weight: 700;
+      letter-spacing: .5px;
+    }
+    .lux-body { padding: 23px; }
+    .lux-body h3 {
+      font-family: Georgia, serif; font-size: 23px;
+      margin: 0 0 10px; color: #18382f;
+    }
+    .lux-desc { font-size: 14px; color: #68736d; line-height: 1.8; min-height: 75px; }
+    .lux-features {
+      display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0;
+    }
+    .lux-feature {
+      font-size: 12px; background: #f5f3ed; color: #425b50;
+      padding: 8px 10px; border-radius: 5px;
+    }
+    .lux-price {
+      border-top: 1px solid #eee9df; padding-top: 17px;
+      margin-top: 15px; margin-bottom: 18px;
+    }
+    .lux-price small { display: block; color: #777f79; font-size: 12px; }
+    .lux-price strong { font-size: 27px; color: #18382f; }
+    .lux-price span { color: #777f79; font-size: 12px; }
+    .lux-book {
+      display: block; text-align: center; padding: 13px 12px;
+      background: #18382f; color: #fff !important;
+      text-decoration: none !important; border-radius: 5px;
+      font-size: 13px; font-weight: 700; transition: background .2s;
+    }
+    .lux-book:hover { background: #a67c3d; }
+    .lux-note {
+      text-align: center; color: #6b746f; font-size: 13px;
+      line-height: 1.8; margin: 35px auto 0; max-width: 700px;
+    }
+    .lux-group {
+      margin-top: 45px; padding: 35px;
+      background: #18382f; color: white; border-radius: 13px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 25px; flex-wrap: wrap;
+    }
+    .lux-group h3 { font: 27px Georgia, serif; margin: 0 0 10px; }
+    .lux-group p { color: #e0e7e2; line-height: 1.8; margin: 0; max-width: 650px; }
+    .lux-group .lux-book {
+      background: #d7b77c; color: #18382f !important;
+      min-width: 190px;
+    }
+    @media (max-width: 900px) {
+      .lux-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      .lux-rooms { padding: 55px 15px; }
+      .lux-grid { grid-template-columns: 1fr; gap: 22px; }
+      .lux-photo { height: 235px; }
+      .lux-desc { min-height: 0; }
+      .lux-group { padding: 25px 20px; }
+      .lux-group .lux-book { width: 100%; }
+    }
+  </style>
 
-    <div style="text-align:center;margin-bottom:40px;">
-      <p style="color:#a47c43;letter-spacing:3px;font-size:12px;font-weight:bold;">
-        FIND YOUR PERFECT ROOM
+  <div class="lux-wrap">
+    <header class="lux-heading">
+      <div class="lux-eyebrow">Stay in Comfort • Stay with Care</div>
+      <h2>Discover Our Rooms & Suites</h2>
+      <p>
+        Welcome to Hotel Decent Suites, Mahipalpur, New Delhi.
+        Explore accommodation options for business trips, family holidays,
+        airport stays and group travel. Choose your preferred room and
+        contact our team for availability and current rates.
       </p>
-      <h2 style="color:#173b32;font-size:36px;margin:10px 0;">
-        Our Rooms & Suites
-      </h2>
-      <p style="color:#66716c;line-height:1.8;max-width:700px;margin:auto;">
-        Discover comfortable accommodation at Hotel Decent Suites,
-        Mahipalpur, New Delhi. Whether you are travelling alone,
-        with family, colleagues or a group, explore our room categories
-        and contact us for availability and the best applicable rates.
-      </p>
+    </header>
+
+    <div class="lux-grid">
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=85"
+               alt="Comfortable hotel deluxe room" loading="lazy">
+          <span class="lux-tag">COMFORT PICK</span>
+        </div>
+        <div class="lux-body">
+          <h3>Deluxe Room</h3>
+          <p class="lux-desc">
+            A welcoming room option for solo travellers and couples
+            looking for a relaxing stay near Delhi Airport.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">❄ Air-conditioned</span>
+            <span class="lux-feature">⌁ Free Wi-Fi</span>
+            <span class="lux-feature">☕ Breakfast option</span>
+          </div>
+          <div class="lux-price">
+            <small>Room-only tariff from</small>
+            <strong>₹1,799</strong> <span>/ night</span>
+            <small style="margin-top:7px;">Breakfast-inclusive option from ₹2,199</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%20Hotel%20Decent%20Suites%2C%20I%20want%20to%20book%20a%20Deluxe%20Room.">
+            ENQUIRE & BOOK ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=85"
+               alt="Superior hotel room" loading="lazy">
+          <span class="lux-tag">RELAX & UNWIND</span>
+        </div>
+        <div class="lux-body">
+          <h3>Superior Room</h3>
+          <p class="lux-desc">
+            A comfortable option for business and leisure guests.
+            Ask about single or double occupancy for your dates.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">❄ Air-conditioned</span>
+            <span class="lux-feature">⌁ Free Wi-Fi</span>
+            <span class="lux-feature">☕ Breakfast option</span>
+          </div>
+          <div class="lux-price">
+            <small>Current tariff</small>
+            <strong>Ask Us</strong>
+            <span> for rates</span>
+            <small style="margin-top:7px;">Rates depend on dates and occupancy.</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Superior%20Room%20photos%20and%20rates.">
+            ENQUIRE & BOOK ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=85"
+               alt="Twin room accommodation" loading="lazy">
+          <span class="lux-tag">TRAVEL TOGETHER</span>
+        </div>
+        <div class="lux-body">
+          <h3>Superior Twin Room</h3>
+          <p class="lux-desc">
+            A practical choice for colleagues and friends who prefer
+            separate beds. Confirm the exact bed configuration when booking.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">🛏 Twin-bed option</span>
+            <span class="lux-feature">⌁ Free Wi-Fi</span>
+            <span class="lux-feature">Business stays</span>
+          </div>
+          <div class="lux-price">
+            <small>Current tariff</small>
+            <strong>Ask Us</strong>
+            <span> for rates</span>
+            <small style="margin-top:7px;">Confirm bedding and occupancy.</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Superior%20Twin%20Room%20availability%20and%20rates.">
+            ENQUIRE & BOOK ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=85"
+               alt="Hotel room for triple occupancy" loading="lazy">
+          <span class="lux-tag">FAMILY & FRIENDS</span>
+        </div>
+        <div class="lux-body">
+          <h3>Triple Room</h3>
+          <p class="lux-desc">
+            An option for three guests travelling together, including
+            small families, friends and colleagues.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">👥 Up to 3 guests*</span>
+            <span class="lux-feature">⌁ Free Wi-Fi</span>
+            <span class="lux-feature">Group travel</span>
+          </div>
+          <div class="lux-price">
+            <small>Current tariff</small>
+            <strong>Ask Us</strong>
+            <span> for rates</span>
+            <small style="margin-top:7px;">*Subject to room setup and occupancy rules.</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%2C%20I%20need%20a%20Triple%20Room%20for%203%20guests.%20Please%20share%20availability%20and%20rates.">
+            ENQUIRE & BOOK ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=900&q=85"
+               alt="Suite-style hotel accommodation" loading="lazy">
+          <span class="lux-tag">MORE ROOM TOGETHER</span>
+        </div>
+        <div class="lux-body">
+          <h3>Suite</h3>
+          <p class="lux-desc">
+            Explore a suite option for families and guests who need
+            accommodation for a larger party.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">👥 Up to 4 guests*</span>
+            <span class="lux-feature">⌁ Free Wi-Fi</span>
+            <span class="lux-feature">Family stays</span>
+          </div>
+          <div class="lux-price">
+            <small>Current tariff</small>
+            <strong>Ask Us</strong>
+            <span> for rates</span>
+            <small style="margin-top:7px;">*Confirm room layout and occupancy.</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Suite%20photos%2C%20availability%20and%20rates.">
+            ENQUIRE & BOOK ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="lux-card">
+        <div class="lux-photo">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=85"
+               alt="Hotel hospitality and group accommodation" loading="lazy">
+          <span class="lux-tag">BUSINESS & GROUPS</span>
+        </div>
+        <div class="lux-body">
+          <h3>Corporate & Group Stays</h3>
+          <p class="lux-desc">
+            Need multiple rooms for employees, business visitors,
+            tour groups or family events? Ask us for a tailored quotation.
+          </p>
+          <div class="lux-features">
+            <span class="lux-feature">Multiple rooms</span>
+            <span class="lux-feature">Corporate enquiries</span>
+            <span class="lux-feature">Group travel</span>
+          </div>
+          <div class="lux-price">
+            <small>Group booking quotations</small>
+            <strong>Custom</strong>
+            <span> rates</span>
+            <small style="margin-top:7px;">Based on dates, room count and availability.</small>
+          </div>
+          <a class="lux-book" href="https://wa.me/919873297090?text=Hello%20Hotel%20Decent%20Suites%2C%20I%20need%20a%20corporate%20or%20group%20booking%20quotation.">
+            GET A GROUP QUOTE ↗
+          </a>
+        </div>
+      </article>
+
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:25px;">
+    <p class="lux-note">
+      All tariffs are subject to availability and applicable terms.
+      Please confirm room photographs, bed configuration, breakfast inclusions
+      and final pricing directly with our team before booking.
+    </p>
 
-      <!-- DELUXE ROOM -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites Deluxe Room"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Deluxe Room</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            A welcoming room option for guests looking for a comfortable
-            and convenient stay near Delhi Airport. Suitable for solo
-            travellers and couples, subject to the selected occupancy.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Room-only tariff from ₹1,799</li>
-            <li>Breakfast-inclusive option from ₹2,199</li>
-            <li>Air-conditioned accommodation</li>
-            <li>Free Wi-Fi</li>
-            <li>Breakfast and other inclusions depend on the package</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20I%20want%20to%20enquire%20about%20a%20Deluxe%20Room."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Enquire About Deluxe Room
-          </a>
-        </div>
-      </article>
-
-      <!-- SUPERIOR ROOM -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites Superior Room"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Superior Room</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            An accommodation option for guests who want a relaxing
-            place to unwind after a busy day of meetings, sightseeing
-            or travel. Ask our team about single and double occupancy.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Single and double occupancy enquiries</li>
-            <li>Comfortable sleeping arrangements</li>
-            <li>Free Wi-Fi</li>
-            <li>Breakfast packages available on enquiry</li>
-            <li>Suitable for business and leisure travellers</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Superior%20Room%20photos%2C%20availability%20and%20rates."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Enquire About Superior Room
-          </a>
-        </div>
-      </article>
-
-      <!-- SUPERIOR TWIN -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites Superior Twin Room"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Superior Twin Room</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            A practical choice for friends, colleagues and business
-            travellers who prefer separate beds. Please confirm the
-            bed configuration and occupancy while booking.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Twin-bed arrangement</li>
-            <li>Suitable for friends and colleagues</li>
-            <li>Free Wi-Fi</li>
-            <li>Breakfast options on enquiry</li>
-            <li>Rates depend on dates and occupancy</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20I%20want%20to%20enquire%20about%20a%20Superior%20Twin%20Room."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Enquire About Twin Room
-          </a>
-        </div>
-      </article>
-
-      <!-- TRIPLE ROOM -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites Triple Room"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Triple Room</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            Designed for guests travelling in a group of three,
-            this category is worth considering for small families,
-            friends and colleagues travelling together.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Suitable for up to three guests, subject to room setup</li>
-            <li>Ask about the available bed configuration</li>
-            <li>Free Wi-Fi</li>
-            <li>Breakfast package on request</li>
-            <li>Confirm the total price for all guests</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Triple%20Room%20availability%20and%20the%20price%20for%203%20guests."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Enquire About Triple Room
-          </a>
-        </div>
-      </article>
-
-      <!-- SUITE -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites Family Suite"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Suite</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            A room category to explore for families or guests who need
-            accommodation for a larger party. Contact us to confirm
-            the layout, bedding and maximum permitted occupancy.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Suitable for family and group enquiries</li>
-            <li>Accommodation for up to four guests, subject to setup</li>
-            <li>Free Wi-Fi</li>
-            <li>Ask about breakfast-inclusive packages</li>
-            <li>Advance availability confirmation recommended</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20please%20share%20Suite%20photos%2C%20availability%20and%20rates%20for%20my%20dates."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Enquire About Suite
-          </a>
-        </div>
-      </article>
-
-      <!-- CORPORATE & GROUP -->
-      <article style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 5px 22px #0000000c;">
-        <img src="hotel-front.jpeg" alt="Hotel Decent Suites group accommodation"
-          style="width:100%;height:230px;object-fit:cover;">
-        <div style="padding:23px;">
-          <h3 style="color:#173b32;font-size:23px;margin:0 0 12px;">Corporate & Group Bookings</h3>
-          <p style="color:#626d67;line-height:1.8;">
-            Need multiple rooms for employees, company visitors,
-            wedding guests or a tour group? Contact our team with
-            your dates, room count and guest requirements.
-          </p>
-          <ul style="color:#52615a;line-height:2;padding-left:20px;">
-            <li>Multiple-room booking enquiries</li>
-            <li>Corporate accommodation requests</li>
-            <li>Family and tour group enquiries</li>
-            <li>Quotation based on dates and availability</li>
-            <li>Breakfast and airport drop options on enquiry</li>
-          </ul>
-          <a href="https://wa.me/919873297090?text=Hello%2C%20I%20need%20a%20quotation%20for%20corporate%20or%20group%20booking."
-            style="display:block;text-align:center;background:#173b32;color:white;padding:13px;border-radius:5px;text-decoration:none;font-weight:bold;">
-            Get Group Booking Quote
-          </a>
-        </div>
-      </article>
-
-    </div>
-
-    <div style="text-align:center;margin-top:40px;">
-      <p style="color:#66716c;line-height:1.8;">
-        For current rates, room photographs, breakfast inclusions
-        and availability, contact our team directly.
-      </p>
-      <a href="tel:+919873297090"
-        style="display:inline-block;background:#b18a4b;color:white;padding:14px 25px;border-radius:5px;text-decoration:none;font-weight:bold;margin:5px;">
-        Call +91 9873297090
+    <div class="lux-group">
+      <div>
+        <h3>Planning your stay in Delhi?</h3>
+        <p>
+          Contact Hotel Decent Suites for room availability, current rates,
+          breakfast options, paid airport drop and corporate or group bookings.
+        </p>
+      </div>
+      <a class="lux-book" href="https://wa.me/919873297090?text=Hello%20Hotel%20Decent%20Suites%2C%20please%20help%20me%20plan%20my%20stay.">
+        CHAT WITH OUR TEAM ↗
       </a>
-      <a href="https://wa.me/919873297090"
-        style="display:inline-block;background:#173b32;color:white;padding:14px 25px;border-radius:5px;text-decoration:none;font-weight:bold;margin:5px;">
-        WhatsApp Us
-      </a>
     </div>
-
   </div>
 </section>
     <section id="amenities">
