@@ -246,22 +246,49 @@ function showPage(name){
  window.scrollTo(0,0);
 }
 document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)showPage(b.dataset.page)});
-document.getElementById('loginForm').addEventListener('submit', async e => {
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById('adminUser').value.trim();
-  const password = document.getElementById('adminPass').value;
+  const email = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
   const error = document.getElementById('loginError');
 
-  error.textContent = '';
+  if (error) error.textContent = '';
 
   try {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (err) {
-    error.textContent = 'Login failed. Check your email and password.';
+    if (error) {
+      error.textContent = 'Login failed. Email aur password check karein.';
+    }
+    console.error('Login error:', err);
   }
 });
 
+auth.onAuthStateChanged((user) => {
+  const login = document.getElementById('login');
+  const app = document.getElementById('app');
+
+  if (user && user.email === 'Hoteldecentsuites@gmail.com') {
+    login.classList.add('hidden');
+    app.classList.add('visible');
+  } else {
+    login.classList.remove('hidden');
+    app.classList.remove('visible');
+
+    if (user) auth.signOut();
+  }
+});
+
+document.getElementById('logout').addEventListener('click', async () => {
+  await auth.signOut();
+});
 auth.onAuthStateChanged(user => {
   const login = document.getElementById('login');
   const app = document.getElementById('app');
