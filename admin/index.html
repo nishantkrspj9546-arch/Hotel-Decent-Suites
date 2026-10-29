@@ -246,9 +246,41 @@ function showPage(name){
  window.scrollTo(0,0);
 }
 document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)showPage(b.dataset.page)});
-document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('visible');});
-document.getElementById('logout').addEventListener('click',()=>{document.getElementById('app').classList.remove('visible');document.getElementById('login').classList.remove('hidden');document.getElementById('loginForm').reset()});
-function openModal(){document.getElementById('modal').classList.add('show')}
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const email = document.getElementById('adminUser').value.trim();
+  const password = document.getElementById('adminPass').value;
+  const error = document.getElementById('loginError');
+
+  error.textContent = '';
+
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    error.textContent = 'Login failed. Check your email and password.';
+  }
+});
+
+auth.onAuthStateChanged(user => {
+  const login = document.getElementById('login');
+  const app = document.getElementById('app');
+
+  if (user && user.email === 'Hoteldecentsuites@gmail.com') {
+    login.classList.add('hidden');
+    app.classList.add('visible');
+  } else {
+    login.classList.remove('hidden');
+    app.classList.remove('visible');
+
+    if (user) auth.signOut();
+  }
+});
+
+document.getElementById('logout').addEventListener('click', async () => {
+  await auth.signOut();
+  document.getElementById('loginForm').reset();
+});function openModal(){document.getElementById('modal').classList.add('show')}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 function notify(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
 document.getElementById('bookingForm').addEventListener('submit',e=>{
