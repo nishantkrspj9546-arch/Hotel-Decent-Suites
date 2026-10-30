@@ -1604,6 +1604,112 @@ async function loadLiveRates() {
 
 loadLiveRates();
 
+let liveRates = [];
+let dailyRateCache = {};
+
+async function loadLiveRates() {
+  try {
+    const doc = await db.collection("rates").doc("current").get();
+
+    if (!doc.exists) {
+      alert("Default room rates not found.");
+      return;
+    }
+
+    liveRates = doc.data().items || [];
+    await updateBookingPrice();
+
+  } catch (error) {
+    console.error("Rate loading error:", error);
+  }
+}
+
+async function getRateForDate(date, room) {
+  if (!dailyRateCache[date]) {
+    const doc = await db.collection("dailyRates").doc(date).get();
+    dailyRateCache[date] = doc.exists ? (doc.data().items || []) : null;
+  }
+
+  const dailyItems = dailyRateCache[date];
+
+  if (dailyItems) {
+    const dailyRate = dailyItems.find(r => r.name === room);
+    if (dailyRate) return dailyRate;
+  }
+
+  return liveRates.find(r => r.name === room);
+}
+
+async function calculateBooking() {
+  const checkin = document.getElementById("checkin").value;
+  const checkout = document.getElementById("checkout").value;
+  const room = document.getElementById("roomType").value;
+  const mealPlan = document.getElementById("mealPlan").value;
+
+  if (!checkin || !checkout || checkout <= checkin) return null;
+
+  let total = 0;
+  let breakdown = [];
+  let current = new Date(checkin + "T00:00:00Z");
+  const last = new Date(checkout + "T00:00:00Z");
+
+  while (current < last) {
+    const date = current.toISOString().slice(0, 10);
+    const rate = await getRateForDate(date, room);
+
+    if (!rate) {
+      throw new Error("Rate not found for " + date);
+    }
+
+    const price = Number(mealPlan === "CP" ? rate.cp : rate.ep);
+
+    if (!Number.isFinite(price) || price <= 0) {
+      throw new Error("Invalid rate for " + date);
+    }
+
+    total += price;
+    breakdown.push({ date, rate: price });
+
+    current.setUTCDate(current.getUTCDate() + 1);
+  }
+
+  return {
+    total,
+    nights: breakdown.length,
+    average: total / breakdown.length,
+    breakdown
+  };
+}
+
+async function updateBookingPrice() {
+  const box = document.getElementById("bookingPrice");
+
+  if (!box) return;
+
+  try {
+    const quote = await calculateBooking();
+
+    if (!quote) {
+      box.textContent = "Select check-in and check-out dates to view total price.";
+      return;
+    }
+
+    box.innerHTML =
+      "Total: ₹" + quote.total.toLocaleString("en-IN") +
+      " | Nights: " + quote.nights +
+      " | Average/night: ₹" + Math.round(quote.average).toLocaleString("en-IN");
+
+  } catch (error) {
+    box.textContent = error.message;
+  }
+}
+
+["checkin", "checkout", "roomType", "mealPlan"].forEach(id => {
+  document.getElementById(id).addEventListener("change", updateBookingPrice);
+});
+
+loadLiveRates();
+
 document.getElementById("bookingForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
@@ -1622,36 +1728,11 @@ document.getElementById("bookingForm").addEventListener("submit", async function
   }
 
   const digits = phone.replace(/\D/g, "");
+
   if (digits.length < 10 || digits.length > 13) {
     alert("Please enter a valid mobile number.");
     return;
   }
-
-  const rate = liveRates.find(r => r.name === room);
-
-  if (!rate) {
-    alert("Room rate is not available. Please try again later.");
-    return;
-  }
-
-  const ratePerNight = Number(mealPlan === "CP" ? rate.cp : rate.ep);
-
-  if (!Number.isFinite(ratePerNight) || ratePerNight <= 0) {
-    alert("Selected room rate is invalid.");
-    return;
-  }
-
-  const nights = Math.round(
-    (Date.parse(checkout + "T00:00:00Z") -
-     Date.parse(checkin + "T00:00:00Z")) / 86400000
-  );
-
-  if (nights <= 0) {
-    alert("Please select valid dates.");
-    return;
-  }
-
-  const amount = ratePerNight * nights;
 
   const button = form.querySelector('button[type="submit"]');
   const originalText = button.textContent;
@@ -1660,6 +1741,12 @@ document.getElementById("bookingForm").addEventListener("submit", async function
   button.textContent = "Sending...";
 
   try {
+    const quote = await calculateBooking();
+
+    if (!quote) {
+      throw new Error("Please select valid booking dates.");
+    }
+
     await db.collection("bookings").add({
       guest,
       phone,
@@ -1668,25 +1755,28 @@ document.getElementById("bookingForm").addEventListener("submit", async function
       room,
       guests,
       mealPlan,
-      ratePerNight,
-      nights,
-      amount,
+      ratePerNight: quote.average,
+      nights: quote.nights,
+      amount: quote.total,
+      rateBreakdown: quote.breakdown,
       status: "Pending",
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
     alert(
-      "Booking request received!\n" +
-      "Meal Plan: " + mealPlan +
-      "\nRate per night: ₹" + ratePerNight +
-      "\nNights: " + nights +
-      "\nTotal: ₹" + amount
+      "Booking request received!" +
+      "\nRoom: " + room +
+      "\nMeal Plan: " + mealPlan +
+      "\nNights: " + quote.nights +
+      "\nTotal: ₹" + quote.total.toLocaleString("en-IN")
     );
-form.reset();
+
+    form.reset();
+    await updateBookingPrice();
 
   } catch (error) {
     console.error("Booking error:", error);
-    alert("Firebase Error: " + error.code + "\n" + error.message);
+    alert("Booking Error: " + error.message);
 
   } finally {
     button.disabled = false;
