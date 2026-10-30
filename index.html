@@ -1698,15 +1698,14 @@ document.getElementById("bookingForm").addEventListener("submit", async function
     alert("Booking request received! Our team will contact you shortly.");
     form.reset();
 
-  } catch (error) {
-    console.error("Booking error:", error);
-    alert("Booking request could not be sent. Please contact the hotel.");
-
-  } finally {
-    button.disabled = false;
-    button.textContent = originalText;
-  }
-});
+ } catch (error) {
+  console.error("Booking error:", error);
+  alert("Firebase Error: " + error.code + "\n" + error.message);
+} finally {
+  button.disabled = false;
+  button.textContent = originalText;
+}
+  });
 </script>
 </body>
 </html>
