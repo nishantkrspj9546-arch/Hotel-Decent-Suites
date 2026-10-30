@@ -1530,5 +1530,79 @@ body {
   }
 }
 </style>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD6Lgxfe1CPhdd54iNgMEI1RWpFvXlj-0Q",
+  authDomain: "hotel-decent-suites-admin.firebaseapp.com",
+  projectId: "hotel-decent-suites-admin",
+  storageBucket: "hotel-decent-suites-admin.firebasestorage.app",
+  messagingSenderId: "921450938788",
+  appId: "1:921450938788:web:def03afcd40068360e0131",
+  measurementId: "G-Z73JW8DQQ4"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
+
+document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const guest = document.getElementById("guest").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const checkin = document.getElementById("checkin").value;
+  const checkout = document.getElementById("checkout").value;
+  const guests = Number(document.getElementById("guests").value);
+  const room = document.getElementById("roomType").value;
+
+  if (checkout <= checkin) {
+    alert("Check-out must be after check-in.");
+    return;
+  }
+
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length < 10 || digits.length > 13) {
+    alert("Please enter a valid mobile number.");
+    return;
+  }
+
+  const button = form.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = "Sending...";
+
+  try {
+    await db.collection("bookings").add({
+      guest: guest,
+      phone: phone,
+      checkin: checkin,
+      checkout: checkout,
+      room: room,
+      guests: guests,
+      amount: 0,
+      status: "Pending",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert("Booking request received! Our team will contact you shortly.");
+    form.reset();
+
+  } catch (error) {
+    console.error("Booking error:", error);
+    alert("Booking request could not be sent. Please contact the hotel.");
+
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+});
+</script>
 </body>
 </html>
