@@ -444,40 +444,52 @@
       </div>
     </section>
 
-    <form class="booking" id="bookingForm">
-      <div>
-        <label for="checkin">Check-in</label>
-        <input type="date" id="checkin" required>
-      </div>
-      <div>
-        <label for="checkout">Check-out</label>
-        <input type="date" id="checkout" required>
-      </div>
-      <div>
-        <label for="guests">Guests</label>
-        <select id="guests">
-          <option>1 Guest</option>
-          <option selected>2 Guests</option>
-          <option>3 Guests</option>
-          <option>4 Guests</option>
-          <option>5+ Guests</option>
-        </select>
-      </div>
-      <div>
-        <label for="roomType">Room Type</label>
-        <select id="roomType">
-          <option>Any Room</option>
-          <option>Deluxe Room</option>
-          <option>Superior Room</option>
-          <option>Superior Twin Room</option>
-          <option>Triple Room</option>
-          <option>Suite</option>
-          <option>Group / Corporate Booking</option>
-        </select>
-      </div>
-      <button class="btn btn-green" type="submit">Check Availability</button>
-    </form>
+   <form class="booking" id="bookingForm">
+  <div>
+    <label for="guest">Guest Name</label>
+    <input type="text" id="guest" name="guest" placeholder="Full name" required>
+  </div>
 
+  <div>
+    <label for="phone">Mobile Number</label>
+    <input type="tel" id="phone" name="phone" placeholder="+91 Mobile Number" required>
+  </div>
+
+  <div>
+    <label for="checkin">Check-in</label>
+    <input type="date" id="checkin" name="checkin" required>
+  </div>
+
+  <div>
+    <label for="checkout">Check-out</label>
+    <input type="date" id="checkout" name="checkout" required>
+  </div>
+
+  <div>
+    <label for="guests">Guests</label>
+    <select id="guests" name="guests">
+      <option value="1">1 Guest</option>
+      <option value="2" selected>2 Guests</option>
+      <option value="3">3 Guests</option>
+      <option value="4">4 Guests</option>
+      <option value="5">5 Guests</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="roomType">Room Type</label>
+    <select id="roomType" name="room">
+      <option value="Standard Room">Standard Room</option>
+      <option value="Deluxe King">Deluxe King</option>
+      <option value="Superior King">Superior King</option>
+      <option value="Family Suite">Family Suite</option>
+    </select>
+  </div>
+
+  <button class="btn btn-green" type="submit">
+    Send Booking Request
+  </button>
+</form>
     <section id="about" style="padding:85px 22px;background:#f8f5ef;">
   <div style="max-width:1160px;margin:auto;">
 
