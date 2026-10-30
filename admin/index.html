@@ -231,6 +231,37 @@ HOTEL DECENT SUITES
 <div id="rates"></div>
 <button class="primary" onclick="saveRates()">Save Rates</button>
 </div>
+  <div class="panel">
+  <h3>Date-wise Rates & Availability</h3>
+
+  <div class="calendar-toolbar">
+    <button class="secondary" onclick="moveCalendar(-14)">
+      ← Previous
+    </button>
+
+    <b id="calendarRange">Loading dates...</b>
+
+    <button class="secondary" onclick="moveCalendar(14)">
+      Next →
+    </button>
+  </div>
+
+  <div class="calendar-scroll">
+    <table class="calendar-table">
+      <thead id="calendarHead"></thead>
+      <tbody id="calendarBody"></tbody>
+    </table>
+  </div>
+
+  <p class="muted">
+    EP = Room only | CP = Breakfast included.
+    Net Booked is calculated from confirmed bookings.
+  </p>
+
+  <button class="primary" onclick="saveCalendar()">
+    Save Calendar
+  </button>
+</div>
 </section>
 
 <section class="section" id="page-reports">
@@ -360,6 +391,7 @@ function showPage(name) {
   $("crumb").textContent = name[0].toUpperCase()+name.slice(1);
 
   if(name==="bookings") renderBookings();
+  if(name==="rates") renderCalendar();
 }
 
 $("nav").addEventListener("click",e=>{
@@ -566,7 +598,155 @@ async function saveRates() {
     toast("Rate save failed: "+error.message);
   }
 }
+// DATE-WISE RATE CALENDAR
 
+let calendarStart = new Date();
+let dailyRateCache = {};
+
+function localDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+
+function shiftDate(date, days) {
+  const d = new Date(date + "T12:00:00");
+  d.setDate(d.getDate() + days);
+  return localDate(d);
+}
+
+function moveCalendar(days) {
+  calendarStart.setDate(calendarStart.getDate() + days);
+  renderCalendar();
+}
+
+async function renderCalendar() {
+  const dates = [];
+
+  for(let i=0; i<14; i++) {
+    const d = new Date(calendarStart);
+    d.setDate(d.getDate()+i);
+    dates.push(localDate(d));
+  }
+
+  $("calendarRange").textContent =
+    dates[0] + " to " + dates[13];
+
+  try {
+    await Promise.all(dates.map(async date => {
+      const doc = await db.collection("dailyRates").doc(date).get();
+      dailyRateCache[date] = doc.exists
+        ? (doc.data().items || [])
+        : [];
+    }));
+  } catch(error) {
+    toast("Calendar load error: " + error.message);
+    return;
+  }
+
+  $("calendarHead").innerHTML =
+    "<tr><th>Room Type</th>" +
+    dates.map(d => `<th>${d}</th>`).join("") +
+    "</tr>";
+
+  $("calendarBody").innerHTML = rates.map((room,i) => {
+    const cells = dates.map(date => {
+      const saved = dailyRateCache[date].find(
+        x => x.name === room.name
+      ) || {};
+
+      const ep = saved.ep ?? room.ep;
+      const cp = saved.cp ?? room.cp;
+      const inventoryItem = inventory.find(x => x[0] === room.name);
+      const defaultRooms = inventoryItem ? inventoryItem[1] : 0;
+      const rooms = saved.roomsToSell ?? defaultRooms;
+
+      const booked = bookings.filter(b =>
+        b.room === room.name &&
+        b.status === "Confirmed" &&
+        b.checkin <= date &&
+        b.checkout > date
+      ).length;
+
+      return `
+        <td>
+          <div class="calendar-cell">
+            <small>EP Rate ₹</small>
+            <input type="number" min="0"
+              id="cal-ep-${date}-${i}" value="${ep}">
+
+            <small>CP Rate ₹</small>
+            <input type="number" min="0"
+              id="cal-cp-${date}-${i}" value="${cp}">
+
+            <small>Rooms to Sell</small>
+            <input type="number" min="0"
+              id="cal-rooms-${date}-${i}" value="${rooms}">
+
+            <small>Net Booked: ${booked}</small>
+          </div>
+        </td>
+      `;
+    }).join("");
+
+    return `<tr><th>${safe(room.name)}</th>${cells}</tr>`;
+  }).join("");
+}
+
+async function saveCalendar() {
+  const dates = [];
+
+  for(let i=0; i<14; i++) {
+    const d = new Date(calendarStart);
+    d.setDate(d.getDate()+i);
+    dates.push(localDate(d));
+  }
+
+  try {
+    const batch = db.batch();
+
+    dates.forEach(date => {
+      const items = rates.map((room,i) => {
+        const ep = Number($(`cal-ep-${date}-${i}`).value);
+        const cp = Number($(`cal-cp-${date}-${i}`).value);
+        const roomsToSell = Number(
+          $(`cal-rooms-${date}-${i}`).value
+        );
+
+        if(
+          !Number.isFinite(ep) || ep < 0 ||
+          !Number.isFinite(cp) || cp < 0 ||
+          !Number.isInteger(roomsToSell) || roomsToSell < 0
+        ) {
+          throw new Error("Invalid value for " + room.name);
+        }
+
+        return {
+          name: room.name,
+          ep,
+          cp,
+          roomsToSell
+        };
+      });
+
+      const ref = db.collection("dailyRates").doc(date);
+
+      batch.set(ref, {
+        items,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+
+    await batch.commit();
+
+    toast("Date-wise rates saved successfully.");
+    await renderCalendar();
+
+  } catch(error) {
+    toast("Calendar save error: " + error.message);
+  }
+}
 async function renderRooms() {
   try {
     const doc = await db.collection("roomInventory").doc("main").get();
