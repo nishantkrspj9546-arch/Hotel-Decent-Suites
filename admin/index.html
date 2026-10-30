@@ -2,150 +2,215 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hotel Decent Suites | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotel Decent Suites — Admin</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172b40}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#172536}
 button,input,select{font:inherit}
 button{cursor:pointer}
-button:focus,input:focus,select:focus{outline:2px solid #d5a45b}
-.hidden{display:none!important}
-#login{min-height:100vh;display:grid;place-items:center;padding:20px;background:#102b46}
-.loginbox{background:white;padding:30px;border-radius:16px;width:min(400px,100%);box-shadow:0 15px 45px #0003}
-.loginbox h1{color:#102b46;font-size:23px}
-.loginbox p{color:#718096;font-size:13px;line-height:1.6}
-.loginbox label{display:block;font-size:13px;font-weight:bold;margin-top:16px}
-.loginbox input{width:100%;padding:12px;margin-top:7px;border:1px solid #ccd5df;border-radius:8px}
-.warning{background:#fff3dc;color:#78551f;padding:12px;border-radius:8px;font-size:11px;line-height:1.6;margin-top:15px}
+.primary{background:#102b46;color:white;border:0;border-radius:8px;padding:11px 15px;font-weight:bold}
+.secondary{background:white;border:1px solid #ddd;border-radius:8px;padding:9px 12px}
+#loginGate{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#102b46,#1b4566)}
+.login{background:white;padding:28px;border-radius:16px;width:min(400px,100%)}
+.login h2{color:#102b46}
+.login label,.field{display:grid;gap:7px;font-size:12px;font-weight:bold;margin:14px 0}
+.login input,.field input,.field select{padding:11px;border:1px solid #dce3eb;border-radius:8px;width:100%}
+.login button{width:100%;margin-top:12px}
+.error{color:#b42318;font-size:12px;min-height:18px}
 .app{display:none}
-.app.visible{display:block}
+.app.on{display:block}
 .layout{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-aside{background:#102b46;color:white;padding:22px 14px}
-.brand{font-size:15px;font-weight:bold;padding:8px;margin-bottom:28px;line-height:1.7}
-.brand small{display:block;color:#d5a45b;font-size:10px;letter-spacing:2px}
-.nav button{width:100%;text-align:left;padding:13px 12px;margin:3px 0;border:0;border-radius:8px;color:white;background:transparent}
-.nav button.active,.nav button:hover{background:#ffffff20}
-aside .foot{font-size:11px;line-height:1.7;color:#ccd7e3;margin-top:35px}
-main{min-width:0}
-header{background:white;border-bottom:1px solid #e1e7ee;padding:20px 28px;display:flex;justify-content:space-between;gap:12px;align-items:center}
-header strong{font-size:14px}
-.content{padding:26px;max-width:1400px;margin:auto}
-.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
-.heading h1{font-size:27px;margin:5px 0}
-.muted{font-size:12px;color:#748398;line-height:1.6}
-.eyebrow{color:#a47737;font-size:10px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
-.btn{border:0;border-radius:8px;background:#102b46;color:white;padding:11px 14px;font-size:12px;font-weight:bold}
-.btn2{border:1px solid #d9e0e8;background:white;color:#20364d;padding:10px 13px;border-radius:8px;font-size:12px}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
-.card,.panel{background:white;border:1px solid #e4e9ef;border-radius:12px;padding:18px;margin-bottom:17px}
-.card .label{font-size:12px;color:#718096}
-.number{font-size:27px;font-weight:bold;margin:13px 0 6px}
-.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
-.panel h2{font-size:15px;margin:0 0 6px}
-.panelhead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:16px}
-.tablewrap{overflow:auto}
-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}
-th{text-align:left;color:#748398;font-size:10px;text-transform:uppercase;padding:12px 9px;border-bottom:1px solid #e5eaf0}
-td{padding:13px 9px;border-bottom:1px solid #edf0f4}
-.pill{display:inline-block;padding:5px 8px;border-radius:20px;font-size:10px;font-weight:bold}
-.Confirmed{background:#ddf5e8;color:#18724b}
-.Pending{background:#fff0d3;color:#8a5c0b}
-.Cancelled{background:#ffe3e3;color:#a32d2d}
-.field{display:block;font-size:12px;font-weight:bold;margin-bottom:13px}
-.field input,.field select{width:100%;padding:11px;margin-top:6px;border:1px solid #d7e0e9;border-radius:8px;background:white;color:#172b40}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.side{background:#102b46;color:white;padding:22px 14px;display:flex;flex-direction:column;gap:22px}
+.brand{font-weight:bold;line-height:1.6;padding:8px}
+.brand small{display:block;color:#d5a45b;font-size:10px}
+.nav{display:grid;gap:5px}
+.nav button{text-align:left;background:none;border:0;color:white;padding:12px;border-radius:8px}
+.nav button.active,.nav button:hover{background:#ffffff22}
+.side .secondary{margin-top:auto}
+.top{height:65px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 25px;border-bottom:1px solid #e5eaf0}
+.content{padding:25px;max-width:1400px;margin:auto}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.head h1{margin:5px 0}
+.muted{font-size:12px;color:#748295}
+.eyebrow{font-size:10px;color:#9a733b;letter-spacing:2px;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat,.panel{background:white;border:1px solid #e5eaf0;border-radius:12px;padding:17px;margin-bottom:15px}
+.stat b{display:block;font-size:26px;margin:10px 0}
+.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:15px}
+.panel h3{margin:0 0 14px;font-size:15px}
 .section{display:none}
 .section.show{display:block}
-.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
-.filters input,.filters select{padding:10px;border:1px solid #d7e0e9;border-radius:8px;background:white}
-.rate-row{display:grid;grid-template-columns:1fr 100px 100px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #e8edf2;font-size:12px}
-.rate-row input{width:100%;padding:9px;border:1px solid #d7e0e9;border-radius:7px}
-.progress{height:6px;background:#edf0f4;border-radius:10px;margin:9px 0 17px;overflow:hidden}
-.progress span{display:block;height:100%;background:#d5a45b}
-.notice{background:#fff5e5;color:#78551f;padding:12px;border-radius:8px;font-size:11px;line-height:1.6;margin-top:14px}
-#modal{display:none;position:fixed;inset:0;background:#07192bcc;place-items:center;padding:15px;z-index:5}
-#modal.show{display:grid}
-.modalbox{width:min(560px,100%);max-height:92vh;overflow:auto;background:white;padding:23px;border-radius:14px}
-.modalbox h2{margin-top:0}
-.actions{display:flex;justify-content:flex-end;gap:8px}
-#toast{position:fixed;bottom:20px;right:20px;background:#153e32;color:white;padding:13px 18px;border-radius:8px;display:none;font-size:12px;z-index:10}
-@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.content{padding:18px}.layout{grid-template-columns:190px 1fr}}
-@media(max-width:620px){.layout{grid-template-columns:1fr}aside{padding:12px}.brand{margin-bottom:8px}.nav{display:flex;overflow-x:auto}.nav button{width:auto;white-space:nowrap;padding:10px}.foot{display:none}header{padding:15px}.content{padding:12px}.heading h1{font-size:21px}.cards{gap:8px}.card{padding:12px}.number{font-size:22px}.formgrid{grid-template-columns:1fr}.rate-row{grid-template-columns:1fr 75px 75px}.heading{align-items:flex-start}}
+.tablewrap{overflow:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}
+th,td{text-align:left;padding:11px;border-bottom:1px solid #edf0f4}
+th{font-size:10px;color:#7c8a9a}
+.pill{padding:5px 8px;border-radius:20px;font-size:10px;background:#e0f5ea;color:#19724d}
+.pill.Pending{background:#fff1d8;color:#946116}
+.pill.Cancelled{background:#fde7e7;color:#a53a3a}
+.filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filters input,.filters select{padding:10px;border:1px solid #ddd;border-radius:8px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modalbg{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:15px}
+.modalbg.show{display:flex}
+.modal{background:white;padding:22px;border-radius:14px;width:min(520px,100%);max-height:90vh;overflow:auto}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
+.toast{display:none;position:fixed;right:15px;bottom:15px;background:#153e32;color:white;padding:13px;border-radius:8px}
+.toast.show{display:block}
+.empty{text-align:center;padding:25px;color:#8190a0}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:600px){
+.layout{grid-template-columns:1fr}
+.side{padding:10px;gap:8px}
+.nav{display:flex;overflow:auto}
+.nav button{white-space:nowrap;font-size:11px;padding:9px}
+.top{height:55px;padding:0 12px}
+.content{padding:15px 10px}
+.formgrid{grid-template-columns:1fr}
+.head h1{font-size:21px}
+}
 </style>
 </head>
 <body>
 
-<section id="login">
-  <form class="loginbox" id="loginForm">
-    <div style="font-size:12px;letter-spacing:2px;color:#a47737;font-weight:bold">HOTEL DECENT SUITES</div>
-    <h1>Staff Sign In</h1>
-    <p>Manage reservations, rooms, rates and hotel reports from one place.</p>
-    <label>Username<input id="username" required autocomplete="username" placeholder="Admin username"></label>
-    <label>Password<input id="password" required type="password" autocomplete="current-password" placeholder="Password"></label>
-    <button class="btn" style="width:100%;margin-top:18px">Open Admin Panel</button>
-    <div class="warning"><b>Demo only:</b> This screen is not secure authentication. Do not enter a real password. Connect Firebase Authentication and database security rules before using real hotel data.</div>
-  </form>
-</section>
+<div id="loginGate">
+<form class="login" id="loginForm">
+<div class="brand" style="color:#102b46">
+HOTEL DECENT SUITES
+<small>ADMIN PORTAL</small>
+</div>
+<h2>Staff sign in</h2>
+<p class="muted">Sign in with your Firebase admin email and password.</p>
+<label>Email
+<input id="email" type="email" required autocomplete="username">
+</label>
+<label>Password
+<input id="password" type="password" required autocomplete="current-password">
+</label>
+<div class="error" id="loginError"></div>
+<button class="primary" id="loginBtn">Sign in</button>
+</form>
+</div>
 
 <div class="app" id="app">
 <div class="layout">
-<aside>
-  <div class="brand">HOTEL DECENT SUITES<small>PROPERTY ADMIN</small></div>
-  <nav class="nav" id="nav">
-    <button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
-    <button data-page="bookings">▤ &nbsp; Bookings</button>
-    <button data-page="rooms">▣ &nbsp; Rooms & Availability</button>
-    <button data-page="rates">₹ &nbsp; Rates & Plans</button>
-    <button data-page="reports">▥ &nbsp; Reports</button>
-    <button data-page="settings">⚙ &nbsp; Property Settings</button>
-  </nav>
-  <div class="foot">Mahipalpur, New Delhi<br>Near IGI Airport<br><br>Demo workspace</div>
+<aside class="side">
+<div class="brand">HOTEL DECENT SUITES
+<small>PROPERTY ADMIN</small>
+</div>
+
+<nav class="nav" id="nav">
+<button class="active" data-page="dashboard">▦ Dashboard</button>
+<button data-page="bookings">▤ Bookings</button>
+<button data-page="rooms">▣ Rooms</button>
+<button data-page="rates">₹ Rates</button>
+<button data-page="reports">▥ Reports</button>
+<button data-page="settings">⚙ Settings</button>
+</nav>
+
+<button class="secondary" id="logout">Sign out</button>
+<small>Mahipalpur, New Delhi · Near IGI Airport</small>
 </aside>
 
 <main>
-<header><div class="muted">Hotel Workspace / <strong id="crumb">Dashboard</strong></div><button class="btn2" id="logout">Exit Admin</button></header>
+<header class="top">
+<b id="crumb">Dashboard</b>
+<span class="muted" id="who"></span>
+</header>
+
 <div class="content">
 
 <section class="section show" id="page-dashboard">
-  <div class="heading"><div><div class="eyebrow">Property overview</div><h1>Hotel Dashboard</h1><div class="muted">Welcome to your hotel admin workspace.</div></div><button class="btn" onclick="openModal()">＋ Add Booking</button></div>
-  <div class="cards">
-    <div class="card"><div class="label">Total Bookings</div><div class="number" id="totalBookings">5</div><div class="muted">Sample reservations</div></div>
-    <div class="card"><div class="label">Occupied Rooms</div><div class="number" id="occupied">24/40</div><div class="muted">Sample inventory</div></div>
-    <div class="card"><div class="label">Confirmed Value</div><div class="number" id="revenue">₹16,400</div><div class="muted">Confirmed booking totals</div></div>
-    <div class="card"><div class="label">Pending Bookings</div><div class="number" id="pending">1</div><div class="muted">Need review</div></div>
-  </div>
-  <div class="grid">
-    <div class="panel"><div class="panelhead"><div><h2>Recent Bookings</h2><div class="muted">Latest sample reservations</div></div><button class="btn2" onclick="showPage('bookings')">View All</button></div><div class="tablewrap"><table><thead><tr><th>Guest</th><th>Check-in</th><th>Room</th><th>Amount</th><th>Status</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
-    <div class="panel"><h2>Room Availability</h2><p class="muted">Illustrative inventory only</p><div id="roomSnapshot"></div><div class="notice">Live availability requires a connected database and booking-conflict checks.</div></div>
-  </div>
+<div class="head">
+<div>
+<div class="eyebrow">PROPERTY OVERVIEW</div>
+<h1>Hotel Dashboard</h1>
+<div class="muted" id="today"></div>
+</div>
+<button class="primary" onclick="openModal()">+ Add Booking</button>
+</div>
+
+<div class="stats">
+<div class="stat">Today's arrivals<b id="arrivals">0</b><span class="muted">Confirmed check-ins</span></div>
+<div class="stat">Total bookings<b id="count">0</b><span class="muted">Live Firestore records</span></div>
+<div class="stat">Confirmed value<b id="revenue">₹0</b><span class="muted">Booking amount</span></div>
+<div class="stat">Pending<b id="pending">0</b><span class="muted">Awaiting confirmation</span></div>
+</div>
+
+<div class="grid">
+<div class="panel">
+<h3>Recent bookings</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Guest</th><th>Stay</th><th>Room</th><th>Amount</th><th>Status</th></tr></thead>
+<tbody id="recent"></tbody>
+</table>
+</div>
+</div>
+<div class="panel">
+<h3>Room inventory</h3>
+<div id="roomSummary" class="muted"></div>
+</div>
+</div>
 </section>
 
 <section class="section" id="page-bookings">
-  <div class="heading"><div><div class="eyebrow">Reservations</div><h1>Booking Management</h1><div class="muted">Search bookings and update their status.</div></div><button class="btn" onclick="openModal()">＋ Add Booking</button></div>
-  <div class="panel"><div class="filters"><input id="search" placeholder="Search guest, phone or ID" oninput="renderBookings()"><select id="statusFilter" onchange="renderBookings()"><option value="all">All statuses</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option></select></div>
-  <div class="tablewrap"><table><thead><tr><th>Booking ID</th><th>Guest</th><th>Phone</th><th>Check-in</th><th>Check-out</th><th>Room</th><th>Guests</th><th>Amount</th><th>Status</th></tr></thead><tbody id="bookingRows"></tbody></table></div></div>
+<div class="head">
+<div><div class="eyebrow">RESERVATIONS</div><h1>Booking Management</h1></div>
+<button class="primary" onclick="openModal()">+ Add Booking</button>
+</div>
+<div class="panel">
+<div class="filters">
+<input id="search" placeholder="Search guest, phone or ID" oninput="renderBookings()">
+<select id="filter" onchange="renderBookings()">
+<option value="all">All statuses</option>
+<option>Confirmed</option>
+<option>Pending</option>
+<option>Cancelled</option>
+</select>
+</div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>ID</th><th>Guest</th><th>Stay</th><th>Room</th><th>Guests</th><th>Amount</th><th>Status</th><th>Update</th></tr></thead>
+<tbody id="bookingRows"></tbody>
+</table>
+</div>
+</div>
 </section>
 
 <section class="section" id="page-rooms">
-  <div class="heading"><div><div class="eyebrow">Inventory</div><h1>Rooms & Availability</h1><div class="muted">Sample room inventory for demonstration.</div></div></div>
-  <div class="panel"><div class="tablewrap"><table><thead><tr><th>Room Type</th><th>Total</th><th>Occupied</th><th>Out of Order</th><th>Available</th></tr></thead><tbody id="roomsRows"></tbody></table></div><div class="notice">Change inventory in the source code for this demo. Actual room status must be saved in a secure database.</div></div>
+<div class="head"><div><div class="eyebrow">INVENTORY</div><h1>Rooms & Availability</h1></div></div>
+<div class="panel" id="roomDetails"></div>
 </section>
 
 <section class="section" id="page-rates">
-  <div class="heading"><div><div class="eyebrow">Revenue management</div><h1>Rates & Meal Plans</h1><div class="muted">Edit sample EP and CP rates for two guests.</div></div></div>
-  <div class="panel"><div id="ratesList"></div><button class="btn" onclick="saveRates()">Save Demo Rates</button><div class="notice">These changes stay in this browser session only. They do not update the public hotel website.</div></div>
+<div class="head"><div><div class="eyebrow">REVENUE MANAGEMENT</div><h1>Rates & Meal Plans</h1></div></div>
+<div class="panel">
+<div id="rates"></div>
+<button class="primary" onclick="saveRates()">Save Rates</button>
+</div>
 </section>
 
 <section class="section" id="page-reports">
-  <div class="heading"><div><div class="eyebrow">Performance</div><h1>Reports</h1><div class="muted">Summary from the sample booking list.</div></div><button class="btn" onclick="exportCSV()">Export CSV</button></div>
-  <div class="cards"><div class="card"><div class="label">Bookings</div><div class="number" id="reportCount">5</div></div><div class="card"><div class="label">Confirmed Value</div><div class="number" id="reportRevenue">₹16,400</div></div><div class="card"><div class="label">Room Types</div><div class="number">4</div></div><div class="card"><div class="label">Total Rooms</div><div class="number">40</div></div></div>
-  <div class="panel"><h2>Report information</h2><p class="muted">For real financial reports, connect the database and separately track payments, refunds, taxes and cancellations.</p></div>
+<div class="head">
+<div><div class="eyebrow">PERFORMANCE</div><h1>Reports</h1></div>
+<button class="secondary" onclick="exportCSV()">Export CSV</button>
+</div>
+<div class="stats">
+<div class="stat">Bookings<b id="reportCount">0</b></div>
+<div class="stat">Confirmed value<b id="reportRevenue">₹0</b></div>
+</div>
 </section>
 
 <section class="section" id="page-settings">
-  <div class="heading"><div><div class="eyebrow">Property profile</div><h1>Property Settings</h1><div class="muted">Sample hotel details.</div></div></div>
-  <div class="panel"><label class="field">Property Name<input id="hotelName" value="Hotel Decent Suites"></label><label class="field">Location<input value="Mahipalpur, New Delhi — Near IGI Airport"></label><label class="field">Contact Number<input value="" placeholder="Enter hotel contact number"></label><label class="field">Total Rooms<input type="number" value="40" min="1"></label><div class="formgrid"><label class="field">Check-in Time<input type="time" value="12:00"></label><label class="field">Check-out Time<input type="time" value="11:00"></label></div><button class="btn" onclick="notify('Settings changed in this demo only.')">Save Demo Settings</button><div class="notice">Settings are not connected to the live website.</div></div>
+<div class="head"><div><div class="eyebrow">PROPERTY PROFILE</div><h1>Settings</h1></div></div>
+<div class="panel formgrid">
+<label class="field">Property name<input id="propertyName" value="Hotel Decent Suites"></label>
+<label class="field">Contact number<input id="contact" value="+91 98732 07000"></label>
+<label class="field">Location<input id="location" value="Mahipalpur, New Delhi"></label>
+<label class="field">Total rooms<input id="totalRooms" type="number" value="40"></label>
+<button class="primary" onclick="saveSettings()">Save Settings</button>
+</div>
 </section>
 
 </div>
@@ -153,28 +218,44 @@ td{padding:13px 9px;border-bottom:1px solid #edf0f4}
 </div>
 </div>
 
-<div id="modal"><div class="modalbox">
-  <h2>Add Reservation</h2><p class="muted">Enter a walk-in, phone or website booking.</p>
-  <form id="bookingForm">
-    <div class="formgrid">
-      <label class="field">Guest Name<input name="guest" required></label>
-      <label class="field">Phone Number<input name="phone" required></label>
-      <label class="field">Check-in<input type="date" name="checkin" required></label>
-      <label class="field">Check-out<input type="date" name="checkout" required></label>
-      <label class="field">Room Type<select name="room"><option>Deluxe King</option><option>Superior King</option><option>Standard Room</option><option>Family Suite</option></select></label>
-      <label class="field">Guests<input type="number" name="guests" min="1" value="2" required></label>
-      <label class="field">Amount (₹)<input type="number" name="amount" min="0" value="2200" required></label>
-      <label class="field">Status<select name="status"><option>Confirmed</option><option>Pending</option></select></label>
-    </div>
-    <div class="actions"><button type="button" class="btn2" onclick="closeModal()">Cancel</button><button class="btn">Save Booking</button></div>
-  </form>
-</div></div>
-<div id="toast"></div>
+<div class="modalbg" id="modal">
+<div class="modal">
+<h3>Add booking</h3>
+<form id="bookingForm">
+<div class="formgrid">
+<label class="field">Guest name<input name="guest" required></label>
+<label class="field">Phone<input name="phone" required></label>
+<label class="field">Check-in<input name="checkin" type="date" required></label>
+<label class="field">Check-out<input name="checkout" type="date" required></label>
+<label class="field">Room
+<select name="room">
+<option>Deluxe King</option>
+<option>Superior King</option>
+<option>Standard Room</option>
+<option>Family Suite</option>
+</select>
+</label>
+<label class="field">Guests<input name="guests" type="number" min="1" value="2" required></label>
+<label class="field">Amount ₹<input name="amount" type="number" min="0" required></label>
+<label class="field">Status
+<select name="status"><option>Confirmed</option><option>Pending</option></select>
+</label>
+</div>
+<div class="actions">
+<button type="button" class="secondary" onclick="closeModal()">Cancel</button>
+<button class="primary">Save Booking</button>
+</div>
+</form>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 <script>
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6Lgxfe1CPhdd54iNgMEI1RWpFvXlj-0Q",
   authDomain: "hotel-decent-suites-admin.firebaseapp.com",
@@ -184,132 +265,363 @@ const firebaseConfig = {
   appId: "1:921450938788:web:def03afcd40068360e0131",
   measurementId: "G-Z73JW8DQQ4"
 };
-const sample=[
-{id:'DS-1001',guest:'Aarav Sharma',phone:'9800000001',checkin:'2026-10-29',checkout:'2026-10-30',room:'Deluxe King',guests:2,amount:2200,status:'Confirmed'},
-{id:'DS-1002',guest:'Priya Verma',phone:'9800000002',checkin:'2026-10-29',checkout:'2026-10-31',room:'Superior King',guests:2,amount:5600,status:'Confirmed'},
-{id:'DS-1003',guest:'Rahul Kumar',phone:'9800000003',checkin:'2026-10-30',checkout:'2026-10-31',room:'Deluxe King',guests:2,amount:2200,status:'Pending'},
-{id:'DS-1004',guest:'Neha Singh',phone:'9800000004',checkin:'2026-10-30',checkout:'2026-11-01',room:'Family Suite',guests:3,amount:6400,status:'Confirmed'},
-{id:'DS-1005',guest:'Mohit Das',phone:'9800000005',checkin:'2026-10-28',checkout:'2026-10-29',room:'Standard Room',guests:2,amount:1600,status:'Cancelled'}
-];
-let bookings=sample.map(b=>({...b}));
-const inventory=[
-{name:'Standard Room',total:12,occupied:7,out:1},
-{name:'Deluxe King',total:16,occupied:10,out:1},
-{name:'Superior King',total:8,occupied:5,out:0},
-{name:'Family Suite',total:4,occupied:2,out:0}
-];
-let rates=[
-{name:'Standard Room',ep:1400,cp:1900},
-{name:'Deluxe King',ep:1600,cp:2200},
-{name:'Superior King',ep:2000,cp:2800},
-{name:'Family Suite',ep:2600,cp:3200}
-];
-const money=n=>'₹'+Number(n).toLocaleString('en-IN');
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function badge(s){return '<span class="pill '+s+'">'+s+'</span>'}
-function updateStats(){
- document.getElementById('totalBookings').textContent=bookings.length;
- document.getElementById('pending').textContent=bookings.filter(b=>b.status==='Pending').length;
- const rev=bookings.filter(b=>b.status==='Confirmed').reduce((a,b)=>a+b.amount,0);
- document.getElementById('revenue').textContent=money(rev);
- document.getElementById('reportCount').textContent=bookings.length;
- document.getElementById('reportRevenue').textContent=money(rev);
-}
-function renderRecent(){
- document.getElementById('recentRows').innerHTML=bookings.slice(0,5).map(b=>'<tr><td>'+esc(b.guest)+'</td><td>'+b.checkin+'</td><td>'+esc(b.room)+'</td><td>'+money(b.amount)+'</td><td>'+badge(b.status)+'</td></tr>').join('');
-}
-function renderBookings(){
- const q=(document.getElementById('search')?.value||'').toLowerCase();
- const st=document.getElementById('statusFilter')?.value||'all';
- const list=bookings.filter(b=>(st==='all'||b.status===st)&&[b.id,b.guest,b.phone,b.room].some(x=>x.toLowerCase().includes(q)));
- document.getElementById('bookingRows').innerHTML=list.length?list.map(b=>'<tr><td>'+b.id+'</td><td>'+esc(b.guest)+'</td><td>'+esc(b.phone)+'</td><td>'+b.checkin+'</td><td>'+b.checkout+'</td><td>'+esc(b.room)+'</td><td>'+b.guests+'</td><td>'+money(b.amount)+'</td><td><select aria-label="Booking status" onchange="changeStatus(\''+b.id+'\',this.value)"><option '+(b.status==='Confirmed'?'selected':'')+'>Confirmed</option><option '+(b.status==='Pending'?'selected':'')+'>Pending</option><option '+(b.status==='Cancelled'?'selected':'')+'>Cancelled</option></select> '+badge(b.status)+'</td></tr>').join(''):'<tr><td colspan="9">No bookings found.</td></tr>';
-}
-function renderRooms(){
- document.getElementById('roomsRows').innerHTML=inventory.map(r=>'<tr><td>'+r.name+'</td><td>'+r.total+'</td><td>'+r.occupied+'</td><td>'+r.out+'</td><td><b>'+(r.total-r.occupied-r.out)+'</b></td></tr>').join('');
- document.getElementById('roomSnapshot').innerHTML=inventory.map(r=>{let pct=Math.round(r.occupied/r.total*100);return '<div style="font-size:12px;font-weight:bold">'+r.name+' <span style="float:right">'+(r.total-r.occupied-r.out)+' available</span></div><div class="progress"><span style="width:'+pct+'%"></span></div>'}).join('');
-}
-function renderRates(){
- document.getElementById('ratesList').innerHTML='<div class="rate-row"><b>Room Type</b><b>EP (₹)</b><b>CP (₹)</b></div>'+rates.map((r,i)=>'<div class="rate-row"><b>'+r.name+'</b><input type="number" min="0" id="ep'+i+'" value="'+r.ep+'"><input type="number" min="0" id="cp'+i+'" value="'+r.cp+'"></div>').join('');
-}
-function saveRates(){
- rates=rates.map((r,i)=>({name:r.name,ep:Math.max(0,Number(document.getElementById('ep'+i).value)),cp:Math.max(0,Number(document.getElementById('cp'+i).value))}));
- notify('Demo rates updated in this page.');
-}
-function changeStatus(id,status){bookings=bookings.map(b=>b.id===id?{...b,status}:b);renderAll();notify('Demo booking status updated.')}
-function renderAll(){updateStats();renderRecent();renderBookings();renderRooms()}
-function showPage(name){
- document.querySelectorAll('.section').forEach(s=>s.classList.remove('show'));
- document.getElementById('page-'+name).classList.add('show');
- document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
- document.getElementById('crumb').textContent=({dashboard:'Dashboard',bookings:'Bookings',rooms:'Rooms & Availability',rates:'Rates & Plans',reports:'Reports',settings:'Property Settings'})[name];
- if(name==='bookings')renderBookings();
- window.scrollTo(0,0);
-}
-document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)showPage(b.dataset.page)});
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+
+const ADMIN_UID = "qabtBsABfHNFVxEUF0LUoZlVHt42";
+
+firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
+const db = firebase.firestore();
 
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
+let bookings = [];
+
+let rates = [
+  {name:"Standard Room",ep:1400,cp:1900},
+  {name:"Deluxe King",ep:1600,cp:2200},
+  {name:"Superior King",ep:2000,cp:2800},
+  {name:"Family Suite",ep:2600,cp:3200}
+];
+
+const inventory = [
+  ["Standard Room",12],
+  ["Deluxe King",16],
+  ["Superior King",8],
+  ["Family Suite",4]
+];
+
+const $ = id => document.getElementById(id);
+
+function money(n) {
+  return "₹" + Number(n || 0).toLocaleString("en-IN");
+}
+
+function safe(s) {
+  return String(s ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function toast(message) {
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
+  setTimeout(()=>$("toast").classList.remove("show"),2500);
+}
+
+function showPage(name) {
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("show"));
+  $("page-"+name).classList.add("show");
+
+  document.querySelectorAll("#nav button").forEach(b=>{
+    b.classList.toggle("active",b.dataset.page===name);
+  });
+
+  $("crumb").textContent = name[0].toUpperCase()+name.slice(1);
+
+  if(name==="bookings") renderBookings();
+}
+
+$("nav").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-page]");
+  if(b) showPage(b.dataset.page);
+});
+
+function openModal() {
+  $("modal").classList.add("show");
+}
+
+function closeModal() {
+  $("modal").classList.remove("show");
+}
+
+function badge(s) {
+  return `<span class="pill ${safe(s)}">${safe(s)}</span>`;
+}
+
+function tableRows(list,full) {
+  if(!list.length) {
+    return `<tr><td colspan="${full?8:5}" class="empty">No bookings saved yet.</td></tr>`;
+  }
+
+  return list.map(b=>`
+    <tr>
+      ${full?`<td>${safe(b.id)}</td>`:""}
+      <td><b>${safe(b.guest)}</b><div class="muted">${safe(b.phone)}</div></td>
+      <td>${safe(b.checkin)}<div class="muted">to ${safe(b.checkout)}</div></td>
+      <td>${safe(b.room)}</td>
+      ${full?`<td>${Number(b.guests||1)}</td>`:""}
+      <td>${money(b.amount)}</td>
+      <td>${badge(b.status)}</td>
+      ${full?`
+      <td>
+        <select onchange="updateStatus('${safe(b.id)}',this.value)">
+          <option ${b.status==="Confirmed"?"selected":""}>Confirmed</option>
+          <option ${b.status==="Pending"?"selected":""}>Pending</option>
+          <option ${b.status==="Cancelled"?"selected":""}>Cancelled</option>
+        </select>
+      </td>`:""}
+    </tr>
+  `).join("");
+}
+
+function refreshDashboard() {
+  $("recent").innerHTML=tableRows(bookings.slice(0,5),false);
+
+  const today=new Date().toISOString().slice(0,10);
+
+  $("arrivals").textContent=bookings.filter(b=>
+    b.checkin===today && b.status==="Confirmed"
+  ).length;
+
+  $("count").textContent=bookings.length;
+
+  $("pending").textContent=bookings.filter(b=>
+    b.status==="Pending"
+  ).length;
+
+  const revenue=bookings.filter(b=>
+    b.status==="Confirmed"
+  ).reduce((sum,b)=>sum+Number(b.amount||0),0);
+
+  $("revenue").textContent=money(revenue);
+  $("reportCount").textContent=bookings.length;
+  $("reportRevenue").textContent=money(revenue);
+}
+
+function renderBookings() {
+  const q=$("search").value.toLowerCase();
+  const status=$("filter").value;
+
+  const list=bookings.filter(b=>
+    (status==="all"||b.status===status) &&
+    [b.id,b.guest,b.phone,b.room].some(v=>
+      String(v||"").toLowerCase().includes(q)
+    )
+  );
+
+  $("bookingRows").innerHTML=tableRows(list,true);
+}
+
+async function loadBookings() {
+  try {
+    const snapshot=await db.collection("bookings")
+      .orderBy("createdAt","desc").get();
+
+    bookings=snapshot.docs.map(doc=>({
+      id:doc.id,
+      ...doc.data()
+    }));
+
+    refreshDashboard();
+    renderBookings();
+
+  } catch(error) {
+    toast("Bookings load error: "+error.message);
+  }
+}
+
+$("bookingForm").addEventListener("submit",async e=>{
   e.preventDefault();
 
-  const email = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value;
-  const error = document.getElementById('loginError');
+  const form=new FormData(e.target);
+  const checkin=form.get("checkin");
+  const checkout=form.get("checkout");
 
-  if (error) error.textContent = '';
+  if(checkout<=checkin) {
+    toast("Check-out must be after check-in.");
+    return;
+  }
+
+  const booking={
+    guest:form.get("guest").trim(),
+    phone:form.get("phone").trim(),
+    checkin,
+    checkout,
+    room:form.get("room"),
+    guests:Number(form.get("guests")),
+    amount:Number(form.get("amount")),
+    status:form.get("status"),
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  };
 
   try {
-    await auth.signInWithEmailAndPassword(email, password);
-  } catch (err) {
-    if (error) {
-      error.textContent = 'Login failed. Email aur password check karein.';
+    await db.collection("bookings").add(booking);
+
+    closeModal();
+    e.target.reset();
+
+    await loadBookings();
+    showPage("bookings");
+
+    toast("Booking saved successfully.");
+
+  } catch(error) {
+    toast("Save failed: "+error.message);
+  }
+});
+
+async function updateStatus(id,status) {
+  try {
+    await db.collection("bookings").doc(id).update({
+      status,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    await loadBookings();
+    toast("Booking status updated.");
+
+  } catch(error) {
+    toast("Update failed: "+error.message);
+  }
+}
+
+function renderRates() {
+  $("rates").innerHTML=rates.map((r,i)=>`
+    <div class="formgrid">
+      <b>${safe(r.name)}</b>
+      <label class="field">EP ₹
+        <input id="ep${i}" type="number" value="${r.ep}">
+      </label>
+      <label class="field">CP ₹
+        <input id="cp${i}" type="number" value="${r.cp}">
+      </label>
+    </div><hr>
+  `).join("");
+}
+
+async function loadRates() {
+  try {
+    const doc=await db.collection("rates").doc("current").get();
+
+    if(doc.exists && Array.isArray(doc.data().items)) {
+      rates=doc.data().items;
     }
-    console.error('Login error:', err);
+
+  } catch(error) {
+    toast("Rates load error: "+error.message);
+  }
+
+  renderRates();
+}
+
+async function saveRates() {
+  const items=rates.map((r,i)=>({
+    name:r.name,
+    ep:Number($("ep"+i).value),
+    cp:Number($("cp"+i).value)
+  }));
+
+  try {
+    await db.collection("rates").doc("current").set({
+      items,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    rates=items;
+    renderRates();
+    toast("Rates saved to Firebase.");
+
+  } catch(error) {
+    toast("Rate save failed: "+error.message);
+  }
+}
+
+function renderRooms() {
+  const html=inventory.map(([name,total])=>
+    `<p><b>${safe(name)}</b> — ${total} total rooms</p>`
+  ).join("");
+
+  $("roomSummary").innerHTML=html;
+  $("roomDetails").innerHTML=html+
+    "<p class='muted'>Inventory totals are sample figures. Live room availability calculations are not included yet.</p>";
+}
+
+function exportCSV() {
+  const rows=[
+    ["ID","Guest","Phone","Check-in","Check-out","Room","Guests","Amount","Status"],
+    ...bookings.map(b=>[
+      b.id,b.guest,b.phone,b.checkin,b.checkout,
+      b.room,b.guests,b.amount,b.status
+    ])
+  ];
+
+  const csv=rows.map(row=>
+    row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")
+  ).join("\n");
+
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download="hotel-bookings.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function saveSettings() {
+  try {
+    await db.collection("settings").doc("property").set({
+      name:$("propertyName").value,
+      contact:$("contact").value,
+      location:$("location").value,
+      totalRooms:Number($("totalRooms").value),
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+
+    toast("Settings saved.");
+
+  } catch(error) {
+    toast("Settings error: "+error.message);
+  }
+}
+
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  $("loginBtn").disabled=true;
+  $("loginBtn").textContent="Signing in…";
+  $("loginError").textContent="";
+
+  try {
+    await auth.signInWithEmailAndPassword(
+      $("email").value.trim(),
+      $("password").value
+    );
+
+  } catch(error) {
+    $("loginError").textContent=error.message;
+    $("loginBtn").disabled=false;
+    $("loginBtn").textContent="Sign in";
   }
 });
 
-auth.onAuthStateChanged((user) => {
-  const login = document.getElementById('login');
-  const app = document.getElementById('app');
-
-  if (user && user.email === 'Hoteldecentsuites@gmail.com') {
-    login.classList.add('hidden');
-    app.classList.add('visible');
-  } else {
-    login.classList.remove('hidden');
-    app.classList.remove('visible');
-
-    if (user) auth.signOut();
+auth.onAuthStateChanged(async user=>{
+  if(!user) {
+    $("loginGate").style.display="grid";
+    $("app").classList.remove("on");
+    return;
   }
-});
 
-document.getElementById('logout').addEventListener('click', async () => {
-  await auth.signOut();
-});
-auth.onAuthStateChanged(user => {
-  const login = document.getElementById('login');
-  const app = document.getElementById('app');
-
-  if (user && user.email === 'Hoteldecentsuites@gmail.com') {
-    login.classList.add('hidden');
-    app.classList.add('visible');
-  } else {
-    login.classList.remove('hidden');
-    app.classList.remove('visible');
-
-    if (user) auth.signOut();
+  if(user.uid!==ADMIN_UID) {
+    await auth.signOut();
+    $("loginError").textContent="This account is not authorized.";
+    return;
   }
+
+  $("loginGate").style.display="none";
+  $("app").classList.add("on");
+  $("who").textContent=user.email;
+
+  $("today").textContent=new Date().toLocaleDateString(
+    "en-IN",{dateStyle:"full"}
+  );
+
+  await Promise.all([loadBookings(),loadRates()]);
+  renderRooms();
 });
 
-document.getElementById('logout').addEventListener('click', async () => {
-  await auth.signOut();
-  document.getElementById('loginForm').reset();
-});function openModal(){document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-function notify(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
-document.getElementById('bookingForm').addEventListener('submit',e=>{
- e.preventDefault();const d=new FormData(e.target),ci=d.get('checkin'),co=d.get('checkout');
- if(co<=ci){notify('Check-out must be after check-in.');retur
+$("logout").onclick=()=>auth.signOut();
+
+$("modal").addEventListener("click",e=>{
+  if(e.target.id==="modal") closeModal();
+});
+</script>
+</body>
+</html>
