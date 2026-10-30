@@ -571,7 +571,23 @@ async function saveSettings() {
     toast("Settings error: "+error.message);
   }
 }
+async function loadSettings() {
+  try {
+    const doc = await db.collection("settings").doc("property").get();
 
+    if (doc.exists) {
+      const s = doc.data();
+
+      $("propertyName").value = s.name || "";
+      $("contact").value = s.contact || "";
+      $("location").value = s.location || "";
+      $("totalRooms").value = s.totalRooms || 40;
+    }
+
+  } catch(error) {
+    toast("Settings load error: " + error.message);
+  }
+}
 $("loginForm").addEventListener("submit",async e=>{
   e.preventDefault();
 
@@ -613,7 +629,7 @@ auth.onAuthStateChanged(async user=>{
     "en-IN",{dateStyle:"full"}
   );
 
-  await Promise.all([loadBookings(),loadRates()]);
+  await Promise.all([loadBookings(),loadRates(),loadSettings()]);
   renderRooms();
 });
 
