@@ -525,16 +525,81 @@ async function saveRates() {
   }
 }
 
-function renderRooms() {
-  const html=inventory.map(([name,total])=>
-    `<p><b>${safe(name)}</b> — ${total} total rooms</p>`
-  ).join("");
+async function renderRooms() {
+  try {
+    const doc = await db.collection("roomInventory").doc("main").get();
+    const savedRooms = doc.exists ? doc.data().rooms || [] : [];
 
-  $("roomSummary").innerHTML=html;
-  $("roomDetails").innerHTML=html+
-    "<p class='muted'>Inventory totals are sample figures. Live room availability calculations are not included yet.</p>";
+    const html = inventory.map(([name, defaultTotal], i) => {
+      const saved = savedRooms.find(r => r.name === name) || {};
+      const total = Number(saved.total ?? defaultTotal);
+      const occupied = Number(saved.occupied ?? 0);
+      const ooo = Number(saved.ooo ?? 0);
+      const available = Math.max(0, total - occupied - ooo);
+
+      return `
+        <div class="panel">
+          <h3>${safe(name)}</h3>
+          <div class="formgrid">
+            <label class="field">Total Rooms
+              <input type="number" min="0" id="roomTotal${i}" value="${total}">
+            </label>
+            <label class="field">Occupied
+              <input type="number" min="0" id="roomOccupied${i}" value="${occupied}">
+            </label>
+            <label class="field">Out of Order
+              <input type="number" min="0" id="roomOOO${i}" value="${ooo}">
+            </label>
+            <label class="field">Available
+              <input type="number" value="${available}" readonly>
+            </label>
+          </div>
+        </div>`;
+    }).join("");
+
+    $("roomSummary").innerHTML =
+      `<b>Total room types:</b> ${inventory.length}`;
+
+    $("roomDetails").innerHTML = html +
+      `<button class="primary" onclick="saveRoomInventory()">Save Inventory</button>`;
+
+  } catch (error) {
+    toast("Room loading error: " + error.message);
+  }
 }
 
+async function saveRoomInventory() {
+  try {
+    const rooms = inventory.map(([name], i) => {
+      const total = Number($("roomTotal" + i).value);
+      const occupied = Number($("roomOccupied" + i).value);
+      const ooo = Number($("roomOOO" + i).value);
+
+      if (
+        !Number.isInteger(total) ||
+        !Number.isInteger(occupied) ||
+        !Number.isInteger(ooo) ||
+        total < 0 || occupied < 0 || ooo < 0 ||
+        occupied + ooo > total
+      ) {
+        throw new Error("Invalid room count for " + name);
+      }
+
+      return { name, total, occupied, ooo };
+    });
+
+    await db.collection("roomInventory").doc("main").set({
+      rooms,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    toast("Room inventory saved successfully.");
+    await renderRooms();
+
+  } catch (error) {
+    toast("Inventory error: " + error.message);
+  }
+}
 function exportCSV() {
   const rows=[
     ["ID","Guest","Phone","Check-in","Check-out","Room","Guests","Amount","Status"],
