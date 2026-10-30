@@ -1682,9 +1682,17 @@ document.getElementById("bookingForm").addEventListener("submit", async function
       "\nNights: " + nights +
       "\nTotal: ₹" + amount
     );
+form.reset();
 
-    form.reset();
+  } catch (error) {
+    console.error("Booking error:", error);
+    alert("Firebase Error: " + error.code + "\n" + error.message);
 
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+});
 </script>
 </body>
 </html>
