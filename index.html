@@ -1559,51 +1559,7 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
-  let liveRates = [];
-
-async function loadLiveRates() {
-  try {
-    const doc = await db.collection("rates").doc("current").get();
-
-    if (!doc.exists) {
-      console.log("Rates not found in Admin Panel.");
-      return;
-    }
-
-    liveRates = doc.data().items || [];
-
-    const roomSelect = document.getElementById("roomType");
-    if (!roomSelect) return;
-
-    let priceBox = document.getElementById("liveRoomPrice");
-
-    if (!priceBox) {
-      priceBox = document.createElement("div");
-      priceBox.id = "liveRoomPrice";
-      priceBox.style.cssText =
-        "grid-column:1/-1;padding:12px;background:#f2f7f4;border-radius:8px;font-weight:600;";
-      roomSelect.parentElement.insertAdjacentElement("afterend", priceBox);
-    }
-
-    function showRoomPrice() {
-      const selectedRoom = roomSelect.value;
-      const rate = liveRates.find(r => r.name === selectedRoom);
-
-      priceBox.textContent = rate
-        ? `EP: ₹${rate.ep} / night  |  CP: ₹${rate.cp} / night`
-        : "Rate not available";
-    }
-
-    roomSelect.addEventListener("change", showRoomPrice);
-    showRoomPrice();
-
-  } catch (error) {
-    console.error("Rate loading error:", error);
-  }
-}
-
-loadLiveRates();
-
+  
 let liveRates = [];
 let dailyRateCache = {};
 
